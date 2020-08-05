@@ -89,7 +89,10 @@ class RecordingManager {
             appData: options.appData,
             broadcastId: options.broadcastId,
             focusMucJid: this._chatRoom.focusMucJid,
-            streamId: options.streamId
+            streamId: options.streamId,
+            streamUrl: options.streamUrl,
+            username: options.username,
+            password: options.password
         })
             .then(() => {
                 // Only store the session and emit if the session has not been
