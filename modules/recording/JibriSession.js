@@ -148,7 +148,7 @@ export default class JibriSession {
      * streaming service provider.
      * @returns Promise
      */
-    start({ appData, broadcastId, focusMucJid, streamId }) {
+    start({ appData, broadcastId, focusMucJid, streamId, streamUrl, username, password }) {
         return new Promise((resolve, reject) => {
             this._connection.sendIQ(
                 this._createIQ({
@@ -156,7 +156,10 @@ export default class JibriSession {
                     appData,
                     focusMucJid,
                     broadcastId,
-                    streamId
+                    streamId,
+                    streamUrl,
+                    username,
+                    password
                 }),
                 result => {
                     // All users will eventually receive the 'pending' status
@@ -215,7 +218,7 @@ export default class JibriSession {
      * streaming service provider.
      * @returns Object - The XMPP IQ message.
      */
-    _createIQ({ action, appData, broadcastId, focusMucJid, streamId }) {
+    _createIQ({ action, appData, broadcastId, focusMucJid, streamId, streamUrl, username, password }) {
         return $iq({
             to: focusMucJid,
             type: 'set'
@@ -226,7 +229,10 @@ export default class JibriSession {
             'app_data': appData,
             'recording_mode': this._mode,
             'streamid': streamId,
-            'you_tube_broadcast_id': broadcastId
+            'you_tube_broadcast_id': broadcastId,
+            'stream_url': streamUrl,
+            username,
+            password
         })
         .up();
     }
